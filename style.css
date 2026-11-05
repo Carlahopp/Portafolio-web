@@ -1,0 +1,434 @@
+/* Concepto: Una historia en forma de libro
+/* =====================================================
+   01. VARIABLES E IDENTIDAD VISUAL
+===================================================== */
+:root {
+    --cream: #fdf8f0;
+    --cream-dark: #f2e9dc;
+    --sage: #6b8a6f;
+    --sage-light: #a7b9a0;
+    --sage-dark: #435d48;
+    --rose: #dfb8b8;
+    --rose-light: #f0dada;
+    --rose-dark: #bd9298;
+    --brown: #3a2a2e;
+    --brown-light: #756267;
+    --paper: #fffdf8;
+    --white: #ffffff;
+    --shadow: 0 15px 40px rgba(58, 42, 46, 0.10);
+    --title-font: 'Playfair Display', serif;
+    --body-font: 'Cormorant Garamond', serif;
+    --signature-font: 'Great Vibes', cursive;
+}
+
+/* =====================================================
+   02. CONFIGURACIÓN GENERAL
+===================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+html { scroll-padding-top: 85px; }
+body { background-color: var(--cream); color: var(--brown); font-family: var(--body-font); font-size: 19px; overflow-x: hidden; }
+h1, h2, h3, h4, h5 { font-family: var(--title-font); color: var(--brown); }
+p { line-height: 1.8; }
+a { text-decoration: none; }
+section { position: relative; }
+
+/* =====================================================
+   03. NAVBAR
+===================================================== */
+#mainNavbar { 
+  background: rgba(253, 248, 240, 0.94); 
+  backdrop-filter: blur(12px); 
+  border-bottom: 1px solid rgba(107, 138, 111, 0.15); 
+  padding: 12px 0; transition: all 0.3s ease; 
+}
+.logo { 
+  font-family: var(--signature-font);
+  font-size: 35px; color: var(--sage-dark) !important; 
+}
+.navbar-nav .nav-link { 
+  font-family: var(--title-font);
+  font-size: 14px; color: var(--brown) !important; 
+  transition: color 0.3s ease; 
+}
+.navbar-nav .nav-link:hover, .navbar-nav .nav-link.active { color: var(--sage) !important; }
+.navbar-toggler { border-color: var(--sage); }
+.navbar-toggler:focus { box-shadow: 0 0 0 0.2rem rgba(107, 138, 111, 0.2); }
+#mainNavbar.navbar-scrolled { box-shadow: 0 5px 20px rgba(58, 42, 46, .08); }
+
+/* =====================================================
+   04. PORTADA — HERO
+===================================================== */
+.hero { min-height: 100vh; 
+  padding: 125px 0 70px; 
+  display: flex; 
+  align-items: center; 
+  position: relative; 
+  overflow: hidden; 
+  background: radial-gradient(circle at 10% 15%, rgba(223, 184, 184, 0.22), transparent 30%), radial-gradient(circle at 90% 80%, rgba(107, 138, 111, 0.17), transparent 35%), linear-gradient(145deg, #fdf8f0, #f7eee8, #f1eee5); 
+}
+.hero-container { position: relative; z-index: 2; }
+.badge-custom { display: inline-block; padding: 9px 18px; border: 1px solid var(--sage); border-radius: 30px; color: var(--sage-dark); font-family: var(--title-font); font-size: 11px; letter-spacing: 3px; }
+.hero-intro { font-size: 22px; color: var(--brown-light); max-width: 450px; }
+.hero-content h1 { font-size: clamp(45px, 6vw, 76px); font-weight: 600; line-height: 1.05; margin: 15px 0; }
+.hero-content h1 span { display: block; color: var(--sage); font-style: italic; }
+.hero-content h2 { font-family: var(--body-font); font-size: 26px; font-weight: 600; color: var(--rose-dark); margin-bottom: 20px; }
+.hero-description { max-width: 500px; color: var(--brown-light); font-size: 21px; }
+.hero-buttons { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 30px; }
+.btn-rose { background-color: var(--rose); color: var(--brown); border: 1px solid var(--rose); }
+.btn-rose:hover { background-color: var(--rose-dark); border-color: var(--rose-dark); color: white; transform: translateY(-3px); }
+.btn-outline-sage { border: 1px solid var(--sage); color: var(--sage-dark); background: transparent; }
+.btn-outline-sage:hover { background: var(--sage); color: white; transform: translateY(-3px); }
+.book-button, .btn-outline-sage { padding: 13px 23px; border-radius: 5px; font-family: var(--title-font); font-size: 14px; transition: all 0.3s ease; }
+.hero-stats { display: flex; flex-wrap: wrap; gap: 35px; margin-top: 55px; padding-top: 25px; border-top: 1px solid rgba(107, 138, 111, 0.25); }
+.stat-item { display: flex; flex-direction: column; }
+.stat-item strong { font-family: var(--title-font); font-size: 21px; color: var(--sage-dark); }
+.stat-item span { font-size: 16px; color: var(--brown-light); }
+
+/* =====================================================
+   05. LIBRO DE PORTADA - FINAL 100% ARREGLADO
+===================================================== */
+.hero-visual { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  perspective: 1500px; 
+}
+.book-scene { 
+  width: min(100%, 430px); 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  padding: 20px; 
+}
+.book { 
+  position: relative; 
+  width: 320px; 
+  height: 430px; 
+  perspective: 1500px; 
+  filter: drop-shadow(18px 22px 18px rgba(58, 42, 46, 0.18)); 
+}
+
+.book-pages { 
+  position: absolute; 
+  width: 100%; 
+  height: 100%; 
+  background: #fffdf8; 
+  border-radius: 4px 12px 12px 4px; 
+  padding: 18px; 
+  z-index: 1; 
+}
+.page-number { 
+  position: absolute; 
+  bottom: 15px; 
+  right: 20px; 
+  font-family: var(--title-font); 
+  color: var(--brown-light); 
+  font-size: 12px; 
+}
+
+.book-cover { 
+  position: absolute; 
+  inset: 0; 
+  z-index: 2; 
+  background: linear-gradient(135deg, #6b8a6f, #435d48); 
+  border-radius: 4px 12px 12px 4px; 
+  transform-origin: left center; 
+  transform-style: preserve-3d; 
+  transition: transform 1.5s cubic-bezier(.68,-0.15,.25,1.15); 
+  box-shadow: inset 8px 0 12px rgba(0,0,0,.12); 
+}
+.book-cover::before { 
+  content: ""; 
+  position: absolute; 
+  left: 12px; 
+  top: 0; 
+  bottom: 0; 
+  width: 12px; 
+  background: rgba(255,255,255,.12); 
+  border-right: 1px solid rgba(255,255,255,.2); }
+
+/* FRENTE - PORTADA*/
+.front-face { 
+  position: absolute; 
+  inset: 20px; 
+  border: 1px solid rgba(255,255,255,.5); 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+  padding: 20px; 
+  color: var(--cream); 
+  backface-visibility: hidden; 
+}
+.cover-label { 
+  font-family: var(--title-font); 
+  font-size: 11px; 
+  letter-spacing: 5px; 
+  margin-bottom: 15px; 
+}
+.cover-photo { 
+  width: 185px;
+  height: 125px; 
+  border-radius: 50%;
+  overflow: hidden; 
+  border: 5px solid rgba(255,255,255,.75); 
+  margin-bottom: 18px; 
+  box-shadow: 0 8px 20px rgba(0,0,0,.18); 
+  background: #d9e0e6; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-photo { width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  object-position: center 15%;
+}
+.front-face h3 { 
+  font-size: 29px; 
+  color: var(--cream); 
+  margin-bottom: 10px; 
+}
+.front-face h3 span { 
+  display: block; 
+  font-style: italic; 
+}
+.front-face p { 
+  font-size: 17px; 
+  color: var(--cream); 
+  line-height: 1.4; 
+}
+.cover-ornament { 
+  margin-top: 12px; 
+  font-size: 22px; 
+  color: var(--rose-light); 
+}
+
+/* Foto de Reverso portada */
+.cover-back { 
+  position: absolute; 
+  inset: 0; 
+  background: linear-gradient(135deg, #6b8a6f, #435d48); 
+  border-radius: 4px 12px 12px 4px; 
+  transform: rotateY(180deg); 
+  backface-visibility: hidden; 
+  padding: 2cm; 
+  box-sizing: border-box; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+.cover-back-frame { 
+  width: 100%; 
+  height: 100%; 
+  background: white; 
+  padding: 6px; 
+  display: flex; 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15); 
+}
+.back-photo { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  object-position: center top; 
+  display: block; 
+}
+
+/* TEXTO PAGINA */
+.about-page-content { 
+  height: 100%; 
+  padding: 20px 15px; 
+  border: 1px solid rgba(107,138,111,.35); 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  background: #fffdf8; 
+}
+.page-label-small { 
+  display: inline-block; 
+  font-family: var(--title-font); 
+  font-size: 8px; 
+  letter-spacing: 3px; 
+  color: var(--rose-dark); 
+  border: 1px solid var(--rose); 
+  padding: 4px 10px; 
+  border-radius: 20px; 
+  margin-bottom: 12px; 
+}
+.about-page-content h4 { 
+  font-family: var(--title-font); 
+  font-size: 20px; 
+  color: var(--sage-dark); 
+  margin-bottom: 10px; 
+  line-height: 1.2; 
+}
+.about-page-content p { 
+  font-family: var(--body-font); 
+  font-size: 14.5px; 
+  line-height: 1.45; 
+  color: var(--brown-light); 
+  margin-bottom: 8px; 
+  text-align: left; 
+}
+.about-page-content .about-quote { 
+  font-style: italic; 
+  color: var(--sage-dark) !important; 
+  font-weight: 600; 
+  border-left: 2px solid var(--rose); 
+  padding-left: 10px; 
+  margin-top: 8px; 
+}
+
+/* APERTURA */
+.book-scene.open .book-cover { transform: rotateY(-155deg); }
+.book-caption { margin-top: 30px; font-family: var(--signature-font); font-size: 29px; color: var(--sage-dark); }
+
+/* DECORACIONES */
+.hero-decoration { position: absolute; color: var(--rose); opacity: .25; pointer-events: none; }
+.hero-decoration i { font-size: 90px; }
+.flower-one { top: 15%; left: 3%; }
+.flower-two { bottom: 12%; right: 3%; }
+.scroll-indicator { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: 5px; 
+  margin-top: 55px; 
+  color: var(--sage-dark); 
+  font-family: var(--title-font); 
+  font-size: 12px; 
+  letter-spacing: 1px; 
+}
+.scroll-indicator i { font-size: 22px; animation: arrowDown 1.5s infinite; }
+@keyframes arrowDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+/* =====================================================
+   06. CAPÍTULOS GENERALES
+===================================================== */
+.chapter-section { padding: 110px 0; }
+.chapter-heading { text-align: center; margin-bottom: 65px; }
+.chapter-number { display: inline-block; font-family: var(--title-font); font-size: 16px; letter-spacing: 4px; color: var(--rose-dark); margin-bottom: 15px; }
+.chapter-heading h2 { font-size: clamp(34px, 5vw, 48px); font-weight: 500; }
+.chapter-subtitle { font-style: italic; font-size: 22px; color: var(--sage); }
+
+/* =====================================================
+   07. CAPÍTULO 01 — MI HISTORIA
+===================================================== */
+.about-section { background: linear-gradient(180deg, #f1eee5 0%, #e8eadd 45%, #e4e9df 100%); }
+.book-page { position: relative; min-height: 440px; padding: 50px 45px; background: var(--paper); border-radius: 3px; box-shadow: var(--shadow); border-left: 5px solid #e8dfd0; }
+.book-page::after { content: ""; position: absolute; top: 20px; bottom: 20px; right: 12px; width: 1px; background: rgba(107, 138, 111, .15); }
+.second-page { background: #fffaf3; }
+.page-label { display: block; font-family: var(--title-font); font-size: 11px; letter-spacing: 3px; color: var(--sage); margin-bottom: 25px; }
+.book-page h3 { font-size: 29px; margin-bottom: 25px; }
+.book-page p { font-size: 20px; color: var(--brown-light); text-align: justify; }
+.highlight-text { color: var(--sage-dark) !important; font-style: italic; font-weight: 600; }
+.page-signature { text-align: right; margin-top: 30px; font-family: var(--signature-font); font-size: 35px; color: var(--rose-dark); }
+.section-title { font-size: 32px; }
+.timeline { max-width: 850px; margin: auto; position: relative; padding-left: 35px; border-left: 2px solid var(--sage-light); }
+.timeline-item { position: relative; padding: 0 0 45px 30px; }
+.timeline-item::before { content: ""; position: absolute; width: 15px; height: 15px; border-radius: 50%; background: var(--rose-dark); left: -43px; top: 5px; border: 3px solid var(--cream); }
+.timeline-date { font-family: var(--title-font); font-size: 13px; letter-spacing: 2px; color: var(--sage-dark); }
+.timeline-content h4 { font-size: 23px; margin-top: 8px; }
+.timeline-content p { font-size: 19px; color: var(--brown-light); margin-bottom: 5px; }
+
+/* =====================================================
+   08. CAPÍTULO 02 — BIBLIOTECA
+===================================================== */
+.skills-section { background: linear-gradient(180deg, #e4e9df, #f5e8e4, #f8eee7); }
+.skills-intro { max-width: 700px; margin: 0 auto 50px; text-align: center; }
+.skills-intro p { font-size: 21px; color: var(--brown-light); }
+.skills-library { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 950px; margin: auto; }
+.skill-book { min-height: 230px; display: flex; background: var(--paper); border-radius: 5px; overflow: hidden; box-shadow: 0 10px 22px rgba(58,42,46,.10); transition: transform .3s ease, box-shadow .3s ease; }
+.skill-book:hover { transform: translateY(-9px) rotate(-1deg); box-shadow: 0 18px 32px rgba(58,42,46,.18); }
+.skill-book-spine { width: 45px; min-width: 45px; background: var(--sage-dark); display: flex; align-items: center; justify-content: center; position: relative; }
+.skill-book:nth-child(2n) .skill-book-spine { background: var(--rose-dark); }
+.skill-book:nth-child(3n) .skill-book-spine { background: #8d7b86; }
+.skill-book-spine span { color: white; font-family: var(--title-font); font-size: 12px; letter-spacing: 2px; writing-mode: vertical-rl; transform: rotate(180deg); }
+.skill-book-content { padding: 30px 20px; display: flex; flex-direction: column; justify-content: center; }
+.skill-book-content i { font-size: 30px; color: var(--sage); margin-bottom: 12px; }
+.skill-book-content h3 { font-size: 22px; }
+.skill-book-content p { font-size: 17px; color: var(--brown-light); margin-bottom: 0; }
+.soft-skills { text-align: center; }
+.soft-skills h3 { font-size: 25px; margin-bottom: 25px; }
+.soft-skills-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.soft-skills-list span { padding: 10px 18px; background: rgba(255,255,255,.65); border: 1px solid rgba(107,138,111,.25); border-radius: 30px; color: var(--sage-dark); font-size: 16px; }
+
+/* =====================================================
+   09. CAPÍTULO 03 — PROYECTOS
+===================================================== */
+.projects-section { background: linear-gradient(180deg, #f8eee7, #fdf8f0, #f0e7df); }
+.projects-intro { max-width: 650px; margin: -30px auto 50px; text-align: center; }
+.projects-intro p { font-size: 21px; color: var(--brown-light); }
+.project-card { height: 100%; background: var(--paper); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); transition: transform .3s ease; }
+.project-card:hover { transform: translateY(-8px); }
+.project-cover { min-height: 230px; background: var(--sage-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; }
+.project-cover i { font-size: 65px; margin-bottom: 18px; }
+.project-cover span { font-family: var(--title-font); font-size: 15px; letter-spacing: 3px; }
+.rose-cover { background: var(--rose-dark); }
+.sage-cover { background: #8a9a7c; }
+.project-info { padding: 25px; }
+.project-info h3 { font-size: 23px; }
+.project-info p { color: var(--brown-light); font-size: 18px; margin-bottom: 0; }
+
+/* =====================================================
+   10. CAPÍTULO 04 — FORMACIÓN
+===================================================== */
+.education-section { background: linear-gradient(180deg, #f0e7df, #e9ece1, #e4e9df); }
+.education-card { height: 100%; padding: 40px; background: var(--paper); border-radius: 5px; box-shadow: var(--shadow); text-align: center; border-top: 4px solid var(--sage); }
+.education-card i { font-size: 42px; color: var(--sage); display: block; margin-bottom: 20px; }
+.education-card span { font-family: var(--title-font); font-size: 13px; color: var(--rose-dark); letter-spacing: 2px; }
+.education-card h3 { font-size: 25px; margin: 15px 0; }
+.education-card p { font-size: 19px; color: var(--brown-light); }
+.courses-card { background: rgba(255,255,255,.7); padding: 35px; border-radius: 5px; box-shadow: var(--shadow); }
+.courses-card h3 { font-size: 25px; margin-bottom: 20px; }
+.courses-card li { margin-bottom: 12px; color: var(--brown-light); }
+.courses-card > p { color: var(--sage-dark); font-weight: 600; margin-top: 20px; }
+
+/* =====================================================
+   11. CAPÍTULO 05 — CONTACTO
+===================================================== */
+.contact-section { background: linear-gradient(180deg, #e4e9df, #dce5d9, #cbd8c8); }
+.contact-book { max-width: 900px; margin: auto; padding: 80px 50px; text-align: center; background: var(--paper); border: 10px double rgba(107,138,111,.25); box-shadow: 0 20px 50px rgba(58,42,46,.12); }
+.contact-content h2 { font-size: clamp(35px, 5vw, 52px); margin-bottom: 25px; }
+.contact-content > p { max-width: 650px; margin: auto; font-size: 21px; color: var(--brown-light); }
+.contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin-top: 40px; }
+.contact-link { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; color: var(--sage-dark); border: 1px solid var(--sage); border-radius: 4px; font-family: var(--title-font); font-size: 14px; transition: all .3s ease; }
+.contact-link:hover { color: white; background: var(--sage); transform: translateY(-3px); }
+.contact-signature { font-family: var(--signature-font); font-size: 55px !important; color: var(--rose-dark) !important; margin-top: 35px !important; }
+.contact-content .contact-final { font-size: 24px; font-style: italic; }
+
+/* =====================================================
+   12. FOOTER
+===================================================== */
+.portfolio-footer { padding: 35px 20px; text-align: center; background: var(--brown); color: var(--cream); }
+.portfolio-footer p { font-size: 16px; margin-bottom: 5px; }
+.portfolio-footer a { display: inline-block; margin-top: 12px; color: var(--rose-light); font-family: var(--title-font); font-size: 14px; }
+.portfolio-footer a:hover { color: white; }
+
+/* =====================================================
+   13. RESPONSIVE
+===================================================== */
+@media (max-width: 991px) {
+    .hero { padding-top: 130px; }
+    .hero-content { text-align: center; }
+    .hero-intro, .hero-description { margin-left: auto; margin-right: auto; }
+    .hero-buttons, .hero-stats { justify-content: center; }
+    .book-scene { margin-top: 30px; }
+    .skills-library { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 575px) {
+    body { font-size: 17px; }
+    .hero { padding-top: 115px; }
+    .hero-content h1 { font-size: 44px; }
+    .book { width: 270px; height: 370px; }
+    .cover-photo { width: 110px; height: 110px; }
+    .cover-back { padding: 0.8cm !important; }
+    .chapter-section { padding: 75px 0; }
+    .book-page { padding: 35px 25px; min-height: auto; }
+    .skills-library { grid-template-columns: 1fr; gap: 18px; }
+    .contact-book { padding: 50px 20px; }
+    .contact-links { flex-direction: column; align-items: stretch; }
+    .hero-buttons { flex-direction: column; }
+    .hero-buttons a { width: 100%; }
+}
